@@ -24,7 +24,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

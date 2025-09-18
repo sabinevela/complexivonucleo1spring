@@ -3,6 +3,7 @@ package com.desarrollo.spring.complexivo.services;
 import com.desarrollo.spring.complexivo.models.User;
 import com.desarrollo.spring.complexivo.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                List.of()
+                user.getRoles().stream().map(item -> new SimpleGrantedAuthority(item.getName()))
+                        .toList()
         );
     }
 }
